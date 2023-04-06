@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-   [SerializeField]private float sensX=80f;
-   [SerializeField] private float sensY=80f;
+    [Range(0f, 100f)]
+    [SerializeField]public float sensX=80f;
+    
+    [Range(0f, 100f)]
+    [SerializeField]public float sensY=80f;
 
-   [SerializeField]Transform cam;
-   [SerializeField]Transform orientation;
+    [SerializeField]Transform cam;
+    [SerializeField]Transform orientation;
 
-    float mouseX;
-    float mouseY;
+    [SerializeField] private float mouseX;
+    [SerializeField] private float mouseY;
 
     float multiplier=0.01f;
 

@@ -4,33 +4,61 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using DG.Tweening;
+using UnityEngine.VFX;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float jumpForce= 5f;
-    public float moveSpeed = 6f;
-    public float moveMultiplier = 10f;
-    public float airMoveMultiplier = 0.4f;
-    public float playerHeight  =2f;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-    
-    public float airDrag=2f;
-    public float groundDrag= 6f;
-    public bool isGrounded;
+    [Header("References")]
     private Rigidbody rb;
-    public Vector3 moveDir;
-
     [SerializeField] Transform orientation;
+    public Camera playerCam;
+    public VisualEffect vfxSpeedLines;
 
-    float horizontalMovement;
-    float verticalMovement;
+    [Header("Player Movement")]
+
+    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float moveMultiplier = 10f;
+    [SerializeField] private float groundDrag = 6f;
+    [SerializeField] private float airDrag = 2f;
+    [SerializeField] private float airMoveMultiplier = 0.4f;
+
+
+
+    [Header("Jump")]
+    [SerializeField] private bool canDoubleJump = false;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float playerHeight = 2f;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] Transform groundCheck;
     
+    public LayerMask groundMask;
+
+    [Header("Dash")]
+    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private bool canDash = true;
+    [SerializeField] private float maxDashDistance = 5f;
+    [SerializeField] private float dashCooldown = 1.5f;
+    [SerializeField] private float lastDashTime = 0f;
+    [SerializeField] private int dashFov = 90;
+    [SerializeField] private int originalFov = 80;
+    [SerializeField] private float fovTime = 0.25f;
+
+    Vector3 dashDirection;
+    float dashDuration = 0.2f;
+
+    [Header("Vectors")]
+    public Vector3 moveDir;
+    Vector3 slopeMoveDir;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey  =KeyCode.Space;
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode dashKey;
+    
+    private float horizontalMovement;
+    private float verticalMovement;
 
-    Vector3 slopeMoveDir;
     RaycastHit slopeHit;
     private bool OnSlope()
     {
@@ -48,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+
         rb = this.GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
@@ -56,18 +84,30 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(transform.position-new Vector3(0,1,0), groundDistance,groundMask);
+        
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         PlayerInput();
         ControlDrag();
 
-        if (isGrounded&& Input.GetKeyDown(jumpKey))
+        if (isGrounded && Input.GetKeyDown(jumpKey))
         {
             Jump();
+            canDoubleJump = true;
+        }
+        else if (Input.GetKeyDown(jumpKey) && !isGrounded && canDoubleJump)
+        {
+            Jump();
+            canDoubleJump = false;
         }
 
-        slopeMoveDir = Vector3.ProjectOnPlane(moveDir, slopeHit.normal);
-        
+        if(Input.GetKeyDown(dashKey)&& canDash&& Time.time >= lastDashTime + dashCooldown)
+        {
+            
+            StartCoroutine(Dash());
+        }
+            slopeMoveDir = Vector3.ProjectOnPlane(moveDir, slopeHit.normal);
+
     }
     void FixedUpdate()
     {
@@ -82,10 +122,10 @@ public class PlayerMovement : MonoBehaviour
 
         moveDir = orientation.transform.forward * verticalMovement + orientation.transform.right * horizontalMovement;
     }
-   
+
     void ControlDrag()
     {
-        if(isGrounded)
+        if (isGrounded)
         {
             rb.drag = groundDrag;
 
@@ -97,23 +137,111 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void MovePlayer()
-    {   if(isGrounded&!OnSlope())
+    {
+        if (isGrounded & !OnSlope())
         {
             rb.AddForce(moveDir.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
         }
-        else if (isGrounded&&OnSlope())
+        else if (isGrounded && OnSlope())
         {
             rb.AddForce(slopeMoveDir.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
         }
-        else if(!isGrounded) { }
+        else if (!isGrounded) { }
         {
-            rb.AddForce(moveDir.normalized * moveSpeed *moveMultiplier * airMoveMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDir.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Acceleration);
         }
     }
 
     void Jump()
     {
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        isGrounded = false;
+        if (isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+        
+
+    }
+
+
+  /*  void Dash()
+    {
+        
+        
+        rb.velocity = new Vector3(0, 0,0);
+        //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        
+        if (moveDir == Vector3.zero)
+        {
+            rb.AddForce(orientation.transform.forward * dashForce, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(moveDir.normalized * dashForce, ForceMode.Impulse);
+            
+        }
+
+        
+    }*/
+
+
+    /*IEnumerator DashTimer()
+    {   
+        Dash();
+        canDash = false;
+        yield return new WaitForSeconds(1);
+        
+        canDash = true;
+
+    }*/
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        lastDashTime = Time.time;
+        float startTime = Time.time;
+        DoFov(dashFov);
+        vfxSpeedLines.Play();
+        if (moveDir == Vector3.zero)
+        {
+           dashDirection = orientation.transform.forward;
+        }
+        else
+        {
+            dashDirection = moveDir.normalized;
+
+        }
+       // Vector3 dashDirection = orientation.transform.forward;
+        Vector3 originalVelocity = rb.velocity;
+        
+        originalVelocity.y = 0;
+        
+        while (Time.time < startTime + dashDuration)
+        {
+            Vector3 dashVelocity = dashDirection* dashForce;
+            dashVelocity.y = 0; // Keep the original Y-axis velocity
+            rb.velocity = dashVelocity;
+            yield return null;
+        }
+
+        rb.velocity = originalVelocity;
+        DoFov(originalFov);
+        vfxSpeedLines.Stop();
+        canDash = true;
+    }
+    
+    void DoFov(float targetFov)
+    {
+        playerCam.DOFieldOfView(targetFov, fovTime);
+    }
+
+
+    void Sling()
+    {
+
     }
 }
