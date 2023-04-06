@@ -424,6 +424,7 @@ MonoBehaviour:
   dashFov: 90
   originalFov: 80
   fovTime: 0.2
+  speedLineVelocity: 8
   moveDir: {x: 0, y: 0, z: 0}
   jumpKey: 32
   dashKey: 304

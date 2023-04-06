@@ -45,6 +45,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int originalFov = 80;
     [SerializeField] private float fovTime = 0.25f;
 
+
+    [Header("VFX Variables")]
+    [SerializeField] private float speedLineVelocity = 10;
+
     Vector3 dashDirection;
     float dashDuration = 0.2f;
 
@@ -100,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             canDoubleJump = false;
         }
-
+        
         if(Input.GetKeyDown(dashKey)&& canDash&& Time.time >= lastDashTime + dashCooldown)
         {
             
@@ -108,6 +112,15 @@ public class PlayerMovement : MonoBehaviour
         }
             slopeMoveDir = Vector3.ProjectOnPlane(moveDir, slopeHit.normal);
 
+
+        if (Mathf.Abs(rb.velocity.x)  > speedLineVelocity|| Mathf.Abs(rb.velocity.y) > speedLineVelocity|| Mathf.Abs(rb.velocity.z) > speedLineVelocity)
+        {   
+            vfxSpeedLines.enabled = true;
+        }
+        else
+        {
+            vfxSpeedLines.enabled = false;
+        }
     }
     void FixedUpdate()
     {
@@ -205,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
         lastDashTime = Time.time;
         float startTime = Time.time;
         DoFov(dashFov);
-        vfxSpeedLines.Play();
+       // vfxSpeedLines.Play();
         if (moveDir == Vector3.zero)
         {
            dashDirection = orientation.transform.forward;
@@ -230,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = originalVelocity;
         DoFov(originalFov);
-        vfxSpeedLines.Stop();
+       // vfxSpeedLines.Stop();
         canDash = true;
     }
     
