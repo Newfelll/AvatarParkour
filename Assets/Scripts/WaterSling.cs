@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class WaterSling : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform cam;
-    public LayerMask layerMask;
+   // public Transform cam;
+   // public LayerMask layerMask;
     public Rigidbody rb;
     public LineRendererAnimation lr;
 
@@ -27,26 +28,27 @@ public class WaterSling : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(slingKey))
-        {
-            SlingSpherecast();
-        }
     }
 
 
 
 
-    void SlingSpherecast()
+    public void SlingSpherecast(RaycastHit hit)
     {
-        RaycastHit hit;
-        if (Physics.SphereCast(cam.position, 2, cam.forward, out hit, maxSlingDistance, layerMask))
-        {
-            slingDir = hit.collider.gameObject.transform.position-transform.position;
-            
-            Sling(slingDir.normalized);
-            lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
+        /* RaycastHit hit;
+         if (Physics.SphereCast(cam.position, 2, cam.forward, out hit, maxSlingDistance, layerMask))
+         {
+             slingDir = hit.collider.gameObject.transform.position-transform.position;
 
-        }
+             Sling(slingDir.normalized);
+             lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
+
+         }*/
+        
+        slingDir = hit.collider.gameObject.transform.position - transform.position;
+
+        Sling(slingDir.normalized);
+        lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
 
     }
 

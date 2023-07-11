@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hookable
+  - Water
+  - Earth
+  - Obstacle
+  - Fire
+  - Updraft
   layers:
   - Default
   - TransparentFX
@@ -13,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Grappeble
+  - Ability
   - 
   - 
   - 

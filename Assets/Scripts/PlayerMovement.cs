@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDrag = 6f;
     [SerializeField] private float airDrag = 2f;
     [SerializeField] private float airMoveMultiplier = 0.4f;
+    [SerializeField] private float updraftForce = 10f;
 
 
 
@@ -63,6 +64,15 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalMovement;
     private float verticalMovement;
 
+   
+
+
+
+
+
+
+
+
     RaycastHit slopeHit;
     private bool OnSlope()
     {
@@ -87,7 +97,9 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {  
+
+        
         
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -125,6 +137,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+
+
 
     }
 
@@ -256,5 +270,42 @@ public class PlayerMovement : MonoBehaviour
     void Sling()
     {
 
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Earth"))
+        {
+            transform.parent = other.transform;
+        }
+        
+      
+        
+
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Earth"))
+        {
+            transform.parent = null;
+        }
+
+       
+    }
+
+    private void OnTriggerStay(Collider other)
+    {   if(other.CompareTag("Updraft"))
+        {
+            float updraftForce = 10f;
+
+
+            Vector3 updraftVector = transform.up * updraftForce;
+            rb.AddForce(updraftVector, ForceMode.Force);
+        }
+       
+       
     }
 }
