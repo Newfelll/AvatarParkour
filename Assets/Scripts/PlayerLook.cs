@@ -31,13 +31,23 @@ public class PlayerLook : MonoBehaviour
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
+    
     void Update()
-    {
-        MouseInput();
+    {   if (!GameManager.gameOver)
+        {
+            if (!GameManager.gamePaused) 
+            { 
+
+            MouseInput();
+
+            cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+            orientation.transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
+
+            }
+        }
+    
         
-        cam.transform.localRotation= Quaternion.Euler(xRotation, yRotation, 0f);
-        orientation.transform.rotation=Quaternion.Euler(0f, yRotation, 0f);
+        
     }
 
 
