@@ -26,7 +26,8 @@ public class MouseIndicator : MonoBehaviour
         {
 
             if (hit.collider.tag == "Water")
-            {
+            {   
+
                 IndicatorUÝ.sprite = indicatorSprites[1];
             }
 
@@ -41,11 +42,15 @@ public class MouseIndicator : MonoBehaviour
             }
 
             if (hit.collider.tag == "Ice")
-            {
+            {   
+                
                 IndicatorUÝ.sprite = indicatorSprites[3];
             }
 
-
+            if (hit.collider.tag == "Untagged")
+            {
+                IndicatorUÝ.sprite = indicatorSprites[0];
+            }
 
 
         }

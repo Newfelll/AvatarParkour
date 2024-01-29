@@ -5,17 +5,34 @@ using UnityEngine;
 public class WaterFreeze : MonoBehaviour
 {   private AudioSource waterFreezeSFX;
     public GameObject iceLayer;
-    private Material freezeShader;
     public float freezeAmount = 1;
     public float freezeSpeed = 5;
     private bool isFreezin = false;
 
+    MeshRenderer freezeShaderr;
+
+
+    MaterialPropertyBlock mpb;
+    public MaterialPropertyBlock Mpb
+    {
+        get
+        {
+            if (mpb == null)
+            {
+                mpb = new MaterialPropertyBlock();
+            }
+            return mpb;
+        }
+    }
 
     void Start()
     {
-        freezeShader = iceLayer.GetComponent<Renderer>().material;
-        freezeShader.SetFloat("dissolveAmount", 1);
+      
         waterFreezeSFX = GetComponent<AudioSource>();
+        freezeShaderr = iceLayer.GetComponent<MeshRenderer>();
+        Mpb.SetFloat("dissolveAmount", 1);
+        freezeShaderr.SetPropertyBlock(Mpb);
+
 
     }
 
@@ -25,10 +42,12 @@ public class WaterFreeze : MonoBehaviour
 
     void Update()
     {
-        if(isFreezin && freezeAmount > 0)
-        {   
-            freezeAmount -= (Time.deltaTime/freezeSpeed);
-            freezeShader.SetFloat("dissolveAmount",freezeAmount );
+
+        if (isFreezin && freezeAmount > 0)
+        {
+            freezeAmount -= (Time.deltaTime / freezeSpeed);
+            Mpb.SetFloat("dissolveAmount", freezeAmount);
+            freezeShaderr.SetPropertyBlock(Mpb);
         }
     }
     public void FreezeWater()
@@ -38,6 +57,7 @@ public class WaterFreeze : MonoBehaviour
             isFreezin = true;
             iceLayer.SetActive(true);
             waterFreezeSFX.PlayOneShot(waterFreezeSFX.clip);
+            this.gameObject.tag = "Untagged";
 
         }
        

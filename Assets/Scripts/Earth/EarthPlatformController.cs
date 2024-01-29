@@ -15,9 +15,10 @@ public class EarthPlatformController : MonoBehaviour
     [SerializeField] private int platformDistance = 3;
     [SerializeField] private bool isPulling;
     [SerializeField] private bool isPushing;
+    public bool isMoving;
 
     private Vector3 targetPosition;
-    private Rigidbody platformRb;
+    public Rigidbody platformRb;
 
     private Vector3 targetDir;
    
@@ -89,7 +90,9 @@ public class EarthPlatformController : MonoBehaviour
         {
 
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            // transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            platformRb.velocity = targetDir * moveSpeed;
+            isMoving = true;
 
         }
 
@@ -98,6 +101,7 @@ public class EarthPlatformController : MonoBehaviour
             
             isPulling = false;
             isPushing = false;
+            isMoving = false;
            
         }
 

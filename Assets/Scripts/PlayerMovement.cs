@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float iceDrag = 1f;
     [SerializeField] private float iceMoveSpeed = 2f;
     [SerializeField] private bool onIce = false;
+    [SerializeField] private float onPlatformDrag = 0f;
 
 
 
@@ -91,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
    
     bool onPlatform = false;
     
-
+    EarthPlatformController platform;
 
     RaycastHit slopeHit;
     private bool OnSlope()
@@ -148,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             onIce = Physics.CheckSphere(groundCheck.position, groundDistance, grounIceMask);
+
 
             PlayerInput();
             ControlDrag();
@@ -241,15 +243,14 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = airDrag;
-        }
-        if (!onIce)
-        {
             moveSpeed = groundMoveSpeed;
         }
+        
     }
 
     void MovePlayer()
     {
+       
         if (isGrounded & OnSlope())
         {
             rb.AddForce(slopeMoveDir.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
@@ -325,16 +326,54 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-   
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(isGrounded && collision.gameObject.CompareTag("Earth"))
+        {
+            platform = collision.gameObject.GetComponentInParent<EarthPlatformController>(); ;
+            transform.parent = collision.transform.parent;
+            onPlatform = true;
+            
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (isGrounded && collision.gameObject.CompareTag("Earth"))
+        {
+            
+            platform = null;
+            transform.parent = null;
+            onPlatform = false;
+        }
+    }
+
+
+    private void OnCollisionStay(Collision collision)
+    {   
+        if (isGrounded && collision.gameObject.CompareTag("Earth"))
+        {   
+            
+
+            if (platform.isMoving)
+            {
+                rb.velocity = new Vector3(platform.platformRb.velocity.x, rb.velocity.y, platform.platformRb.velocity.z);
+                rb.drag = onPlatformDrag;
+            }else
+            {
+                rb.drag = groundDrag;
+            }
+        }
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Earth"))
+      /*  if (other.CompareTag("Earth"))
         {
              transform.parent = other.transform;
              onPlatform = true;
-        }
+        }*/
 
         if (other.CompareTag("Finish"))
         {
@@ -354,30 +393,41 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Earth"))
+       /* if (other.CompareTag("Earth"))
         {
             transform.parent = null;
             onPlatform = false;
 
-        }
+        }*/
 
         
        
 
     }
 
+
+
     private void OnTriggerStay(Collider other)
     {   if(other.CompareTag("Updraft"))
         {
-            
-
+           
 
             Vector3 updraftVector = other.gameObject.transform.up * updraftForce;
             rb.AddForce(updraftVector, ForceMode.Acceleration);
         }
 
-      
-       
+        /*if (other.CompareTag("Earth"))
+        {
+
+            if (GetComponentInParent<EarthPlatformController>().isMoving)
+            {
+                rb.velocity = new Vector3(GetComponentInParent<EarthPlatformController>().platformRb.velocity.x,rb.velocity.y, GetComponentInParent<EarthPlatformController>().platformRb.velocity.z) ;
+            }
+            
+
+
+        }*/
+
 
     }
 

@@ -36,12 +36,15 @@ public class WaterSling : MonoBehaviour
     public void SlingSpherecast(RaycastHit hit)
     {
         
-        
-        slingDir = hit.collider.gameObject.transform.position - transform.position;
+        if(hit.collider.gameObject.GetComponent<WaterInteractableCoolDown>().isCoolingDown == false)
+        {
+            slingDir = hit.collider.gameObject.transform.position - transform.position;
 
-        Sling(slingDir.normalized);
-        lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
-        Destroy(hit.collider.gameObject);
+            Sling(slingDir.normalized);
+            lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
+            hit.collider.gameObject.GetComponent<WaterInteractableCoolDown>().CoolDown();
+        }
+        
 
     }
 
