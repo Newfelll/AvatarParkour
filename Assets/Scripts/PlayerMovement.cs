@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCam;
     public VisualEffect vfxSpeedLines;
     private AudioSource playerSFX;
+    EarthPlatformController platform;
 
     [Header("Player Movement")]
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float iceMoveSpeed = 2f;
     [SerializeField] private bool onIce = false;
     [SerializeField] private float onPlatformDrag = 0f;
+    [SerializeField] private bool onPlatform = false;
 
 
 
@@ -90,9 +92,9 @@ public class PlayerMovement : MonoBehaviour
 
 
    
-    bool onPlatform = false;
     
-    EarthPlatformController platform;
+    
+    
 
     RaycastHit slopeHit;
     private bool OnSlope()
@@ -125,14 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!GameManager.gamePaused)
-                {
-                    GameManager.Pause();
-                }
-                else { GameManager.Resume(); }
-            }
+            
 
 
             if (Input.GetKeyDown(KeyCode.R))
@@ -182,22 +177,18 @@ public class PlayerMovement : MonoBehaviour
             slopeMoveDir = Vector3.ProjectOnPlane(moveDir, slopeHit.normal);
 
 
-            if (Mathf.Abs(rb.velocity.x) > speedLineVelocity || Mathf.Abs(rb.velocity.y) > speedLineVelocity || Mathf.Abs(rb.velocity.z) > speedLineVelocity)
+            if (Mathf.Abs(rb.velocity.x) > speedLineVelocity || Mathf.Abs(rb.velocity.y) > speedLineVelocity || Mathf.Abs(rb.velocity.z) > speedLineVelocity|| onPlatform)
             {
                 vfxSpeedLines.enabled = true;
             }
             else
             {
-                if (!onPlatform)
-                {
+               
                     vfxSpeedLines.enabled = false;
-                }
+                
                 
             }
-            if (onPlatform)
-            {
-                vfxSpeedLines.enabled = true;
-            }
+            
            
 
             if (rb.velocity.magnitude > 2)
@@ -234,6 +225,12 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = iceMoveSpeed;
 
         }
+        else if (isGrounded&&onPlatform&&platform.isMoving)
+        {
+            rb.drag = onPlatformDrag;
+            moveSpeed = groundMoveSpeed;
+
+        }
         else if (isGrounded)
         {
             rb.drag = groundDrag;
@@ -249,9 +246,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void MovePlayer()
-    {
-       
-        if (isGrounded & OnSlope())
+    {   if(onPlatform&&platform.isMoving)
+        {
+            rb.velocity = new Vector3(platform.platformRb.velocity.x, rb.velocity.y, platform.platformRb.velocity.z);
+        }
+        else if (isGrounded & OnSlope())
         {
             rb.AddForce(slopeMoveDir.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
            
@@ -331,8 +330,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isGrounded && collision.gameObject.CompareTag("Earth"))
         {
-            platform = collision.gameObject.GetComponentInParent<EarthPlatformController>(); ;
             transform.parent = collision.transform.parent;
+            platform = collision.gameObject.GetComponentInParent<EarthPlatformController>(); ;
             onPlatform = true;
             
         }
@@ -355,14 +354,15 @@ public class PlayerMovement : MonoBehaviour
         {   
             
 
-            if (platform.isMoving)
+         /*   if (platform.isMoving)
             {
                 rb.velocity = new Vector3(platform.platformRb.velocity.x, rb.velocity.y, platform.platformRb.velocity.z);
-                rb.drag = onPlatformDrag;
+                
             }else
             {
                 rb.drag = groundDrag;
             }
+         */
         }
         
     }

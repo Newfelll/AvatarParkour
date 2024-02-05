@@ -60,7 +60,7 @@ public class EarthPlatformController : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        if (isPulling)
+      /*  if (isPulling)
         {
             MoveToPosition();
         }
@@ -69,6 +69,8 @@ public class EarthPlatformController : MonoBehaviour
         {
             MoveToPosition();
         }
+      */
+        MoveToPosition();
     }
     public void PullingPlatform(Vector3 newPosition)
     {
@@ -80,19 +82,21 @@ public class EarthPlatformController : MonoBehaviour
         targetDir=targetDir.normalized;
         
         isPulling = true;
+        isMoving = true;
         
        
     }
 
     void MoveToPosition()
     {
-        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
+        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1)) && isMoving)
         {
 
 
             // transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            platformRb.velocity = targetDir * moveSpeed;
-            isMoving = true;
+             platformRb.velocity = targetDir * moveSpeed;
+            
+           // isMoving = true;
 
         }
 
@@ -115,6 +119,7 @@ public class EarthPlatformController : MonoBehaviour
         targetDir = targetPosition-transform.position;
         targetDir=targetDir.normalized;
         isPushing = true;
+        isMoving = true;
         
 
     }

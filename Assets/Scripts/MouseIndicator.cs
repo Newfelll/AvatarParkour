@@ -11,6 +11,12 @@ public class MouseIndicator : MonoBehaviour
     public LayerMask layerMask;
     public float sphereRadius = 1f;
     public Image IndicatorUÝ;
+
+    private string waterTag = "Water";
+    private string earthTag = "Earth";
+    private string fireTag = "Fire";
+    private string iceTag = "Ice";
+
     void Start()
     {
         ;
@@ -25,32 +31,29 @@ public class MouseIndicator : MonoBehaviour
            
         {
 
-            if (hit.collider.tag == "Water")
+            if (hit.collider.tag == waterTag)
             {   
 
                 IndicatorUÝ.sprite = indicatorSprites[1];
             }
 
-            if (hit.collider.tag == "Earth")
+            else if (hit.collider.tag == earthTag)
             {
                 IndicatorUÝ.sprite = indicatorSprites[2];
             }
 
-            if (hit.collider.tag == "Fire")
+            else if (hit.collider.tag == fireTag)
             {
                 IndicatorUÝ.sprite = indicatorSprites[1];
             }
 
-            if (hit.collider.tag == "Ice")
+            else if (hit.collider.tag == iceTag)
             {   
                 
                 IndicatorUÝ.sprite = indicatorSprites[3];
             }
-
-            if (hit.collider.tag == "Untagged")
-            {
-                IndicatorUÝ.sprite = indicatorSprites[0];
-            }
+             else  IndicatorUÝ.sprite = indicatorSprites[0];
+            
 
 
         }

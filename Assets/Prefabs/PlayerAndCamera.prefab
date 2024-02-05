@@ -169,7 +169,7 @@ Transform:
   - {fileID: 8545664412696102783}
   - {fileID: 87371393199784207}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2400790806811517444
 GameObject:
@@ -450,9 +450,11 @@ MonoBehaviour:
   iceDrag: 1
   iceMoveSpeed: 3.3
   onIce: 0
+  onPlatformDrag: 0
+  onPlatform: 0
   canDoubleJump: 0
   isGrounded: 0
-  jumpForce: 9
+  jumpForce: 9.8
   playerHeight: 2
   groundDistance: 0.4
   groundCheck: {fileID: 4114563527653643353}

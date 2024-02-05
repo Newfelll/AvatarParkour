@@ -675,7 +675,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30016
+  m_Name: pb_Mesh69412
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -848,7 +848,7 @@ GameObject:
   - component: {fileID: 533893379}
   - component: {fileID: 533893378}
   - component: {fileID: 533893377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

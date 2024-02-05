@@ -56,7 +56,7 @@ public class ElementRaycastController : MonoBehaviour
 
             }
             else isPushing = false;
-
+           
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -111,7 +111,7 @@ public class ElementRaycastController : MonoBehaviour
                         WaterFreeze waterFreeze = hit.collider.GetComponent<WaterFreeze>();
                         if (waterFreeze != null)
                         {
-                            waterFreeze.FreezeWater();
+                            waterFreeze.StartFreeze();
                         }
                     }
                     else if (hitTag == "Earth")

@@ -41,13 +41,17 @@ public class GameManager : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (gamePaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                pauseMenu.SetActive(true);
-                Time.timeScale = 0;
-                crosshair.SetActive(false);
+                if (!gamePaused)
+                {
+                    Pause();
+                }
+                else { Resume(); }
             }
-            else { Time.timeScale = 1; pauseMenu.SetActive(false); crosshair.SetActive(true); }
+
+
+
 
             if (timeStarted)
             {
@@ -96,16 +100,21 @@ public class GameManager : MonoBehaviour
     {
           Application.Quit();
     }
-    static public void Resume()
+    public void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gamePaused = false;
+        Time.timeScale = 1; pauseMenu.SetActive(false); crosshair.SetActive(true);
     }
-    static public void Pause()
+    public void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         gamePaused = true;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+        crosshair.SetActive(false);
     }
+
 }

@@ -43,14 +43,14 @@ public class WaterFreeze : MonoBehaviour
     void Update()
     {
 
-        if (isFreezin && freezeAmount > 0)
+       /* if (isFreezin && freezeAmount > 0)
         {
             freezeAmount -= (Time.deltaTime / freezeSpeed);
             Mpb.SetFloat("dissolveAmount", freezeAmount);
             freezeShaderr.SetPropertyBlock(Mpb);
-        }
+        }*/
     }
-    public void FreezeWater()
+    public IEnumerator FreezeWater()
     {   if(!isFreezin) 
         {
 
@@ -59,7 +59,23 @@ public class WaterFreeze : MonoBehaviour
             waterFreezeSFX.PlayOneShot(waterFreezeSFX.clip);
             this.gameObject.tag = "Untagged";
 
+            while (isFreezin && freezeAmount > 0)
+            {
+                freezeAmount -= (Time.deltaTime / freezeSpeed);
+                Mpb.SetFloat("dissolveAmount", freezeAmount);
+                freezeShaderr.SetPropertyBlock(Mpb);
+                yield return null;
+            }
+
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+
         }
        
     }
+
+   public void StartFreeze()
+    {
+        StartCoroutine(FreezeWater());
+    }
+    
 }
