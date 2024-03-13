@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.41460484, g: 0.7264151, b: 0.70203847, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -1553,6 +1553,7 @@ MonoBehaviour:
     RefIds:
     - rid: 1725110187740364844
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &659177016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1801,13 +1802,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659177011}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 1, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &659294772
 LightingSettings:
@@ -5519,3 +5520,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 197b4e439e257e94194fc6219f578f00, type: 3}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1009862557}
+  - {fileID: 671639769}
+  - {fileID: 7840880375385228695}
+  - {fileID: 375003541}
+  - {fileID: 654315729}
+  - {fileID: 659177017}
+  - {fileID: 1291567800}
+  - {fileID: 2086824350}
+  - {fileID: 685197245}
+  - {fileID: 912870240}
+  - {fileID: 361014711}
+  - {fileID: 1748503237}
+  - {fileID: 1900139251}
+  - {fileID: 1403196488}
+  - {fileID: 365647944}
+  - {fileID: 844457656}
+  - {fileID: 384206035}
+  - {fileID: 132659401}
+  - {fileID: 569428267}
+  - {fileID: 1269692224}
+  - {fileID: 247503561}
+  - {fileID: 1181042904}
+  - {fileID: 1604364380}
+  - {fileID: 107527625}
+  - {fileID: 2077652858}
+  - {fileID: 757505879}
+  - {fileID: 1714943180}
+  - {fileID: 1924267599}
+  - {fileID: 343432130}
+  - {fileID: 1301218381}
+  - {fileID: 1845417170}
+  - {fileID: 1921570106}
+  - {fileID: 2053975054}
+  - {fileID: 1922032613}
+  - {fileID: 2128269813}
+  - {fileID: 1497409668}
+  - {fileID: 1739091792}
+  - {fileID: 1740785059}
+  - {fileID: 1694519637}
+  - {fileID: 1983916167}
+  - {fileID: 162035057}
+  - {fileID: 1929832275}
+  - {fileID: 1214884248}
+  - {fileID: 714794070}
