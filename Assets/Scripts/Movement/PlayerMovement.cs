@@ -36,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float airDrag = 2f;
     [SerializeField] private float airMoveMultiplier = 0.4f;
     [SerializeField] private float updraftForce = 10f;
+<<<<<<< Updated upstream
+=======
+    private Vector3 updraftVector;
+>>>>>>> Stashed changes
     [SerializeField] private float iceDrag = 1f;
     [SerializeField] private float iceMoveSpeed = 2f;
     [SerializeField] private bool onIce = false;
@@ -48,6 +52,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float canDoubleJump = 1;
     [SerializeField] private bool isGrounded;
+<<<<<<< Updated upstream
+=======
+    [SerializeField] private bool jump=false;
+>>>>>>> Stashed changes
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float playerHeight = 2f;
     [SerializeField] private float groundDistance = 0.4f;
@@ -163,13 +171,21 @@ public class PlayerMovement : MonoBehaviour
 
             if (isGrounded && Input.GetKeyDown(jumpKey))
             {
+<<<<<<< Updated upstream
                 Jump();
+=======
+                jump = true;
+>>>>>>> Stashed changes
 
 
             }
             else if (Input.GetKeyDown(jumpKey) && !isGrounded && canDoubleJump == 1)
             {
+<<<<<<< Updated upstream
                 Jump();
+=======
+                jump = true;
+>>>>>>> Stashed changes
                 canDoubleJump = 0;
             }
 
@@ -208,10 +224,20 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+<<<<<<< Updated upstream
        
 
 
 
+=======
+
+        if (jump)
+        {   jump = false;
+            Jump();
+        }
+
+       
+>>>>>>> Stashed changes
     }
    
 
@@ -394,7 +420,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+<<<<<<< Updated upstream
 
+=======
+       
+>>>>>>> Stashed changes
 
     }
   
@@ -408,7 +438,11 @@ public class PlayerMovement : MonoBehaviour
 
         }*/
 
+<<<<<<< Updated upstream
         
+=======
+       
+>>>>>>> Stashed changes
        
 
     }
@@ -420,8 +454,14 @@ public class PlayerMovement : MonoBehaviour
         {
            
 
+<<<<<<< Updated upstream
             Vector3 updraftVector = other.gameObject.transform.up * updraftForce;
             rb.AddForce(updraftVector, ForceMode.Acceleration);
+=======
+            updraftVector = other.gameObject.transform.up * updraftForce;
+            
+            Updraft();
+>>>>>>> Stashed changes
         }
 
         /*if (other.CompareTag("Earth"))
@@ -439,5 +479,15 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+<<<<<<< Updated upstream
+=======
+
+    void Updraft()
+    {
+        
+        rb.AddForce(updraftVector, ForceMode.Acceleration);
+    }
+
+>>>>>>> Stashed changes
   
 }

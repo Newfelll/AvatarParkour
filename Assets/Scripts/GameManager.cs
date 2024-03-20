@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
-{   [Header("Gameplay")]
+{
+    [Header("Gameplay")]
     static public bool gameOver = false;
     static public bool gamePaused = false;
     public GameObject crosshair;
     public TextMeshProUGUI timeScore;
     public static bool timeStarted = false;
     private float time = 0f;
+    public Slider sensitivityX,sensivityY;
 
 
     [Header("Level Change")]
@@ -22,9 +25,10 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   Resume();
+    {
+        
         gameOver = false;
-       if (PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name) == null)
+        if (PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name) == null)
         {
             PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name, 300);
         }
@@ -33,6 +37,14 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name, 300);
         }
 
+        PlayerLook.sensX = PlayerPrefs.GetFloat("SensitivityX");
+        PlayerLook.sensY = PlayerPrefs.GetFloat("SensitivityY");
+
+        sensitivityX.value = PlayerLook.sensX;
+        sensivityY.value = PlayerLook.sensY;
+
+        Resume();
+        gameOver = false;
         Time.timeScale = 1;
     }
 
@@ -42,7 +54,13 @@ public class GameManager : MonoBehaviour
         if (!gameOver)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+<<<<<<< Updated upstream
             {
+=======
+            {   
+               
+
+>>>>>>> Stashed changes
                 if (!gamePaused)
                 {
                     Pause();
@@ -66,7 +84,8 @@ public class GameManager : MonoBehaviour
 
 
     public void FinishLevel()
-    {   crosshair.SetActive(false);
+    {
+        crosshair.SetActive(false);
         finishMenu.active = true;
         currentTimeText.text = "Current Time: " + time.ToString("F2");
         if (time < PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name))
@@ -83,10 +102,13 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public  void OpenNextLevel(int levelID)
+    public void OpenNextLevel(int levelID)
     {
-        string levelName = "Level_" + (levelID+1);
+        string levelName = "Level_" + (SceneManager.GetActiveScene().buildIndex + 1);
+
+
         SceneManager.LoadScene(levelName);
+       
     }
     public void ReturnMainMenu()
     {
@@ -98,14 +120,25 @@ public class GameManager : MonoBehaviour
     }
     public void ExitGame()
     {
-          Application.Quit();
+        Application.Quit();
     }
     public void Resume()
+<<<<<<< Updated upstream
     {
+=======
+    {   
+>>>>>>> Stashed changes
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gamePaused = false;
         Time.timeScale = 1; pauseMenu.SetActive(false); crosshair.SetActive(true);
+<<<<<<< Updated upstream
+=======
+
+        SettingsData.SetSensitivity(sensitivityX.value, sensivityY.value);
+        
+
+>>>>>>> Stashed changes
     }
     public void Pause()
     {
@@ -117,4 +150,8 @@ public class GameManager : MonoBehaviour
         crosshair.SetActive(false);
     }
 
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

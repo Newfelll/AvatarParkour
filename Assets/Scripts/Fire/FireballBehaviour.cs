@@ -19,14 +19,17 @@ public class FireballBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         if (isMoving)
         {
             Move();
         }
     }
 
-
-   
     private void OnTriggerEnter(Collider other)
     {   if (!other.gameObject.CompareTag("Player"))
         {

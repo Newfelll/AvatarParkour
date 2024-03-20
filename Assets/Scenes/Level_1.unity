@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.34163073, g: 0.39390552, b: 0.5146123, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.34210044, g: 0.3946495, b: 0.5137361, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3562,11 +3566,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 957350094646461191, guid: 2c220b58fde445b479f471f8f9328271,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 957350094646461191, guid: 2c220b58fde445b479f471f8f9328271,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.882
       objectReference: {fileID: 0}
@@ -3633,20 +3632,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3988625952347637359, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5258867290553428356, guid: c5de4fa47dc779445979371189a6c43b,
         type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7325401420771830622, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7325401420771830622, guid: c5de4fa47dc779445979371189a6c43b,
         type: 3}
@@ -3697,31 +3686,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7541945068793539168, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8105516968257912833, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8131845130230155408, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860235905376507395, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -27.064697
-      objectReference: {fileID: 0}
-    - target: {fileID: 8939852146133024080, guid: c5de4fa47dc779445979371189a6c43b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

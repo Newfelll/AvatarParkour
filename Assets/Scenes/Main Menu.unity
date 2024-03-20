@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.34163073, g: 0.39390552, b: 0.5146123, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.34210044, g: 0.3946495, b: 0.5137361, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4290,6 +4294,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142271510}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
+=======
+--- !u!1001 &7556690993629652692
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 238879047369219471, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_Name
+      value: Data
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 992.33295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 548.41205
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1288.8177
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929894756137290166, guid: 10d391012d4ce0541bcfb7a4c779ef44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10d391012d4ce0541bcfb7a4c779ef44, type: 3}
+>>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4297,3 +4372,7 @@ SceneRoots:
   - {fileID: 175151413}
   - {fileID: 1325346889}
   - {fileID: 1232300993}
+<<<<<<< Updated upstream
+=======
+  - {fileID: 7556690993629652692}
+>>>>>>> Stashed changes

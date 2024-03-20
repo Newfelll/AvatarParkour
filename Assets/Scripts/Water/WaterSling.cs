@@ -15,6 +15,7 @@ public class WaterSling : MonoBehaviour
     private Vector3 slingDir;
 
     public float slingForce = 10f;
+    private bool sling = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,15 @@ public class WaterSling : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        if (sling)
+        {
+            sling = false;
+            Sling(slingDir.normalized);
+        }
+    }
+
 
 
 
@@ -40,7 +50,12 @@ public class WaterSling : MonoBehaviour
         {
             slingDir = hit.collider.gameObject.transform.position - transform.position;
 
+<<<<<<< Updated upstream
             Sling(slingDir.normalized);
+=======
+            //Sling(slingDir.normalized);
+            sling = true;
+>>>>>>> Stashed changes
             lr.ThrowWaterHook(hit.collider.gameObject.transform.position);
             hit.collider.gameObject.GetComponent<WaterInteractableCoolDown>().CoolDown();
         }
